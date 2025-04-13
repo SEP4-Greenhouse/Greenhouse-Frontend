@@ -1,0 +1,157 @@
+/* Global layout */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #0f1a17;
+    color: #e6f2ef;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Sidebar base */
+  .sidebar {
+    width: 220px;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  /* Glass effect */
+  background-color: rgba(15, 26, 23, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  overflow: hidden;
+  }
+  
+  /* Sidebar visible */
+  .showSidebar {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  /* Sidebar hidden */
+  .hideSidebar {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+  /* Header (Logo area) */
+  .sidebar-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  /* Menu list */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Each list item */
+  .sidebar li {
+    margin-bottom: 12px;
+  }
+  
+  /* Menu links */
+  .menu-link {
+    color: #e6f2ef;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-link:hover {
+    background-color: #1b2a26;
+  }
+  
+  .menu-icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .menu-text {
+    font-size: 15px;
+  }
+  
+  /* Log out button */
+  .logout-button {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    background-color: #1b2a26;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .logout-button:hover {
+    background-color: #2a3c38;
+  }
+  
+  /* Main content (right side of the screen) */
+  .main-content {
+    flex: 1;
+  margin-left: 220px; /* Same as .sidebar width */
+  padding: 40px 60px; /* Top/Bottom & Left/Right padding */
+  transition: margin-left 0.3s ease;
+  background-color: #0f1a17;
+  min-height: 100vh;
+  }
+  
+  /* Responsive adjustment when sidebar hidden */
+  .hideSidebar ~ .main-content {
+    margin-left: 0;
+  }
+  
+  /* Toggle button (top left of content area) */
+  .toggle-btn {
+    background: none;
+    color: #e6f2ef;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .menu-link.active {
+    background-color: #1a2d28;
+    font-weight: bold;
+  }
+  
+  .page-wrapper {
+    display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #e6f2ef;
+  }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    color: #e6f2ef;
+    background-color: #0f1a17;
+  }
+  
+  
+  

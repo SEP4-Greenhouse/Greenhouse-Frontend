@@ -1,10 +1,12 @@
+// src/App.tsx
 import { Outlet } from "react-router-dom";
+import { AuthProvider } from "./features/auth/AuthContext"; // ✅ Ensure path is correct
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+    <AuthProvider>
       <Outlet />
-    </div>
+    </AuthProvider>
   );
 };
 

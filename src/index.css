@@ -28,7 +28,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0f1a17;
+  color: #e6f2ef;
 }
+
 
 h1 {
   font-size: 3.2em;
