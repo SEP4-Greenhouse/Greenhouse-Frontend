@@ -1,65 +1,75 @@
 .dashboard {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem 4rem;
     color: white;
     min-height: 100vh;
     gap: 2rem;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
   }
   
   .dashboard-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     text-align: center;
     font-weight: bold;
   }
   
-  /* Top row of stats */
+  /* Stat cards container */
   .stats-row {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
+    width: 100%;
   }
   
-  /* Individual stat box */
+  /* Individual stat card */
   .stat-card {
     background: rgba(15, 25, 25, 0.5);
     backdrop-filter: blur(6px);
-    padding: 1.5rem;
-    border-radius: 12px;
-    flex: 1 1 150px;
-    min-width: 150px;
+    padding: 2rem;
+    border-radius: 16px;
+    flex: 1 1 250px;
+    min-width: 220px;
     text-align: center;
-    box-shadow: 0 0 10px #0f766e33;
+    box-shadow: 0 0 15px #0f766e33;
+    transition: transform 0.2s ease;
+  }
+  
+  .stat-card:hover {
+    transform: scale(1.03);
   }
   
   .stat-card h3 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
   }
   
   .stat-card p {
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
   }
   
-  /* Alert panel below stats */
+  /* Alerts container */
   .alerts-section {
-    margin-top: 2rem;
+    width: 100%;
   }
   
   .alerts-panel {
     background: rgba(15, 25, 25, 0.5);
     backdrop-filter: blur(6px);
     padding: 2rem;
-    border-radius: 12px;
-    height: 300px;
-    overflow-y: auto;
-    box-shadow: 0 0 10px #f87171aa;
+    border-radius: 16px;
+    min-height: 250px;
+    box-shadow: 0 0 15px #f87171aa;
+    color: white;
+    width: 100%;
   }
   
   .alerts-panel h2 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #f87171;
   }
@@ -70,7 +80,8 @@
   }
   
   .alerts-panel li {
-    padding: 0.5rem;
+    padding: 0.75rem 0;
     border-bottom: 1px solid #ffffff22;
+    font-size: 1.1rem;
   }
   

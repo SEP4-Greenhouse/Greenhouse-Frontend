@@ -1,0 +1,96 @@
+.control-page {
+  padding: 2rem;
+  color: white;
+}
+
+.control-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.control-grid {
+  display: flex;
+  flex-wrap: wrap; /* ✅ allows wrapping side-by-side */
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.control-box {
+  background: rgba(30, 41, 59, 0.6);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #0f766e88;
+  width: 480px; /* ✅ same principle as chart-box */
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.control-box h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.control-box input[type="range"] {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.control-box span {
+  font-weight: 500;
+}
+
+.btn-on,
+.btn-off {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-on {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-off {
+  background-color: #10b981;
+  color: white;
+}
+
+.control-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.save-btn {
+  padding: 0.6rem 1.5rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  padding: 0.6rem 1.5rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
