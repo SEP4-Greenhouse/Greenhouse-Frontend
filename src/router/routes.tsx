@@ -4,7 +4,7 @@ import Welcome from "../pages/Welcome";
 import Login from "../features/auth/Login";
 import Register from "../features/auth/Register";
 import SidebarLayout from "../components/layout/SidebarLayout";
-import Dashboard from "../features/dashboard/Dashboard";
+import Dashboard from "../components/dashboard/Dashboard";
 import ControlPanel from "../features/control/ControlPanel";
 import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
