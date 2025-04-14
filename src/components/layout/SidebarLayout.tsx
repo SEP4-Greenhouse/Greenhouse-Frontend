@@ -1,17 +1,20 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../layout/sidebar.css";
+import { MdDashboard, MdBarChart, MdNotifications, MdTune } from "react-icons/md";
 
 const SidebarLayout = () => {
   const navigate = useNavigate();
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
   const menu = [
-    { name: "Dashboard", path: "/dashboard", icon: "dashboard" },
-    { name: "History", path: "/history", icon: "bar_chart" },
-    { name: "Alerts", path: "/alerts", icon: "notifications" },
-    { name: "Control", path: "/controlpanel", icon: "tune" },
+    { name: "Dashboard", path: "/app/dashboard", icon: <MdDashboard /> },
+    { name: "History", path: "/app/history", icon: <MdBarChart /> },
+    { name: "Alerts", path: "/app/alerts", icon: <MdNotifications /> },
+    { name: "Control", path: "/app/control", icon: <MdTune /> },
   ];
+  
+  
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);

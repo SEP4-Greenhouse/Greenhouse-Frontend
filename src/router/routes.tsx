@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App"; // ✅ App wraps all routes with AuthProvider
+import App from "../App"; // wraps everything in AuthProvider
 import Welcome from "../pages/Welcome";
 import Login from "../features/auth/Login";
 import Register from "../features/auth/Register";
@@ -9,18 +9,23 @@ import ControlPanel from "../features/control/ControlPanel";
 import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
 import MachineLearning from "../features/machine-learning/MachineLearning";
+import ProtectedRoute from "./ProtectedRoute"; // ✅ your auth guard
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />, // wraps with <AuthProvider>
+    element: <App />,
     children: [
       { path: "", element: <Welcome /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       {
         path: "app",
-        element: <SidebarLayout />,
+        element: (
+          <ProtectedRoute>
+            <SidebarLayout />
+          </ProtectedRoute>
+        ),
         children: [
           { path: "dashboard", element: <Dashboard /> },
           { path: "control", element: <ControlPanel /> },
