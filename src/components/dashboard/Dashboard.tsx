@@ -43,14 +43,16 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <h1 className="dashboard-title">Greenhouse Dashboard</h1>
+      <h1 className="dashboard-title">🌿 Greenhouse Dashboard</h1>
+
       <section className="stats-row">
         <StatCard label="Lighting" value={`${stats.lightning} lx`} />
         <StatCard label="LED" value={stats.led} />
-        <StatCard label="Waterpump" value={stats.waterpump} />
+        <StatCard label="Water Pump" value={stats.waterpump} />
         <StatCard label="Temperature" value={`${stats.temperature} °C`} />
         <StatCard label="Humidity" value={`${stats.humidity} %`} />
       </section>
+
       <section className="alerts-section">
         <AlertsPanel alerts={alerts} />
       </section>
