@@ -1,0 +1,166 @@
+.water-pump-panel {
+  background: rgba(15, 25, 25, 0.5);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  border-radius: 16px;
+  min-height: 250px;
+  box-shadow: 0 0 15px #3b82f688;
+  color: white;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.vibrate {
+  animation: shake 0.3s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 1px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(-1px, -1px); }
+}
+
+.water-pump-panel h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #3b82f6;
+}
+
+.water-bar {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border: 2px solid #3b82f6;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.water-scale {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.scale-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(white 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.05;
+  animation: float 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes float {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: height 1.5s ease;
+  overflow: hidden;
+  border-top-left-radius: 50% 20px;
+  border-top-right-radius: 50% 20px;
+  z-index: 1;
+}
+
+.water-fill::before,
+.water-fill::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -75%;
+  left: -50%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  animation: wave 4s linear infinite;
+  opacity: 0.3;
+}
+
+.water-fill::after {
+  animation-delay: 2s;
+  opacity: 0.15;
+}
+
+.water-fill[data-color="low"] {
+  background: linear-gradient(to top, rgba(239, 68, 68, 0.9) 30%, rgba(239, 68, 68, 0.4) 70%, transparent 100%);
+}
+
+.water-fill[data-color="medium"] {
+  background: linear-gradient(to top, rgba(250, 204, 21, 0.9) 30%, rgba(250, 204, 21, 0.4) 70%, transparent 100%);
+}
+
+.water-fill[data-color="high"] {
+  background: linear-gradient(to top, rgba(59, 130, 246, 0.9) 30%, rgba(59, 130, 246, 0.4) 70%, transparent 100%);
+}
+
+.reflection {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: reflect 6s linear infinite;
+}
+
+@keyframes reflect {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+.bubble-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: rise 6s infinite ease-in;
+}
+
+.bubble:nth-child(1) { left: 20%; animation-delay: 0s; animation-duration: 6s; }
+.bubble:nth-child(2) { left: 40%; animation-delay: 1s; animation-duration: 5s; }
+.bubble:nth-child(3) { left: 60%; animation-delay: 2s; animation-duration: 7s; }
+.bubble:nth-child(4) { left: 80%; animation-delay: 3s; animation-duration: 4.5s; }
+
+@keyframes rise {
+  0% { bottom: 0; transform: scale(0.6); opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { bottom: 100%; transform: scale(1.2); opacity: 0; }
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

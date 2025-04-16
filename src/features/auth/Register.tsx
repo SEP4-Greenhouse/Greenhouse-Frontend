@@ -1,7 +1,7 @@
-// src/pages/Register.tsx
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../auth/login.css";
 
 const Register = () => {
   const { register } = useAuth();
@@ -18,22 +18,44 @@ const Register = () => {
     e.preventDefault();
     try {
       await register(form);
-      navigate("/"); // redirect to dashboard or wherever
+      navigate("/login");
     } catch (err: any) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="auth-container">
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        {error && <p className="error">{error}</p>}
-        <input name="username" placeholder="Username" onChange={handleChange} required />
-        <input name="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Register</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          {error && <p className="error">{error}</p>}
+          <input
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+
+        <p className="switch-auth">
+          Already have an account? <a href="/login">Login here</a>
+        </p>
+      </div>
     </div>
   );
 };
