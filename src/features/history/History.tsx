@@ -13,7 +13,7 @@ const History = () => {
 
   return (
     <div className="history-container">
-      <h1 className="history-title">Historical Data View</h1>
+      <h1 className="history-title">🌿 Historical Data View</h1>
 
       <div className="filter-bar">
         <input
