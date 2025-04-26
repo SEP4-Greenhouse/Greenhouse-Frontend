@@ -4,14 +4,13 @@ import * as path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/Greenhouse-Frontend/', // github pages deplyment
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // ✅ No need for historyApiFallback
   server: {
-    // optional dev server settings
     port: 5173,
     open: true,
   },
