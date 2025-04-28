@@ -2,9 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: '/Greenhouse-Frontend/', // for github pages deployment
+  base: mode === 'development' ? '/' : '/Greenhouse-Frontend/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -14,8 +14,4 @@ export default defineConfig({
     port: 5173,
     open: true,
   },
-  build: {
-    outDir: 'dist',
-  },
-  assetsInclude: ['**/*.html'],
-});
+}));
