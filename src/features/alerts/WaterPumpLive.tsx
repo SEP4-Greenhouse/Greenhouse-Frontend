@@ -21,17 +21,15 @@ const WaterPumpLive = () => {
       <h2>💧 Water Level Monitor</h2>
 
       <div className="water-bar">
-        {/* measurement lines */}
         <div className="water-scale">
           {[0, 20, 40, 60, 80, 100].map((value) => (
             <div key={value} className="scale-line" style={{ top: `${value}%` }} />
           ))}
         </div>
 
-        {/* floating particles */}
         <div className="particles"></div>
 
-        {/* water fill */}
+
         <div
           className="water-fill"
           style={{ height: `${level}%` }}
