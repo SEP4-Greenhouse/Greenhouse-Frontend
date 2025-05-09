@@ -1,5 +1,3 @@
-import "./dashboard.css";
-
 interface Props {
   alerts: string[];
 }
@@ -22,3 +20,7 @@ const AlertsPanel = ({ alerts }: Props) => {
 };
 
 export default AlertsPanel;
+
+// Backend API integration:
+// - Fetch alerts from the backend when the component is mounted.
+// - Example: Use an API call to retrieve the latest alerts and pass them as props.

@@ -1,6 +1,8 @@
 .control-page {
   padding: 6rem;
   color: white;
+  min-height: 100vh; /*  Full screen height */
+  overflow-y: auto;   /*  Scroll if needed */
 }
 
 .control-title {

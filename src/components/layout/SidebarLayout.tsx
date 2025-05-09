@@ -13,8 +13,6 @@ const SidebarLayout = () => {
     { name: "Alerts", path: "/app/alerts", icon: <MdNotifications /> },
     { name: "Control", path: "/app/control", icon: <MdTune /> },
   ];
-  
-  
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -34,7 +32,7 @@ const SidebarLayout = () => {
                 className="menu-link"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate(item.path);
+                  navigate(item.path); // Navigation logic; no backend integration here
                 }}
               >
                 <span className="material-icons menu-icon">{item.icon}</span>
@@ -43,7 +41,16 @@ const SidebarLayout = () => {
             </li>
           ))}
         </ul>
-        <button className="logout-button" onClick={() => navigate("/login")}>Log out</button>
+        <button
+          className="logout-button"
+          onClick={() => {
+            // Backend API integration: Logout logic
+            // Example: Send a request to invalidate the user's session on the backend
+            navigate("/login");
+          }}
+        >
+          Log out
+        </button>
       </aside>
 
       <main className="main-content">

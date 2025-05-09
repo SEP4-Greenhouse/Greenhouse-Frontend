@@ -17,6 +17,8 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Backend API integration: Registration
+      // Call the `register` function from AuthContext, which sends a request to the backend
       await register(form);
       navigate("/login");
     } catch (err: any) {

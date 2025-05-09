@@ -16,13 +16,13 @@
   animation: shake 0.3s infinite;
 }
 
-@keyframes shake {
+/* @keyframes shake {
   0% { transform: translate(0, 0); }
   25% { transform: translate(1px, -1px); }
   50% { transform: translate(-1px, 1px); }
   75% { transform: translate(1px, 1px); }
   100% { transform: translate(-1px, -1px); }
-}
+} */
 
 .water-pump-panel h2 {
   font-size: 1.5rem;

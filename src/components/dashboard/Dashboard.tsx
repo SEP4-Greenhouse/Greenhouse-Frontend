@@ -61,3 +61,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+// Backend API integration:
+// - Fetch real-time stats (e.g., temperature, humidity, etc.) from the backend.
+// - Fetch alerts from the backend and update the `alerts` state.
