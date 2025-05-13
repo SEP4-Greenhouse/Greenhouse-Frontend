@@ -9,6 +9,8 @@ const GreenhouseControl = () => {
   const [lightingLevel, setLightingLevel] = useState(50);
 
   const handleSave = () => {
+    // Backend API integration:
+    // - Send the updated control settings (temperature, humidity, etc.) to the backend.
     console.log("Saved settings:", {
       temperature,
       humidity,
@@ -19,6 +21,7 @@ const GreenhouseControl = () => {
   };
 
   const handleCancel = () => {
+    // Reset to default values (no backend integration needed here).
     setTemperature(25);
     setHumidity(60);
     setLedOn(false);
@@ -97,3 +100,5 @@ const GreenhouseControl = () => {
 };
 
 export default GreenhouseControl;
+// Backend API integration:
+// - Send updated control settings to the backend when the "Save" button is clicked.

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import './Login.css';
+import './login.css';
 
 const Login = () => {
   const { login } = useAuth();
@@ -12,6 +12,8 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Backend API integration: Login
+      // Call the `login` function from AuthContext, which sends a request to the backend
       await login(username, password);
       navigate("/app/dashboard");
     } catch (err) {
