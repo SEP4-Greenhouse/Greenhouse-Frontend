@@ -5,72 +5,114 @@ html, body {
   padding: 0;
 }
 
-.alerts-page {
-  flex: 1;
+.alerts-container {
+  padding: 1rem;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  height: 100vh;
-  overflow: hidden;
-  padding: 2rem 4rem;
-  box-sizing: border-box;
 }
 
+.alerts-title {
+  font-size: 2.5rem;
+  margin-bottom: 5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alerts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.alert-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 220px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.alert-card:hover {
+  transform: scale(1.02);
+}
+
+.alert-label {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.alert-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  text-align: center;
+}
+
+.alert-button {
+  padding: 0.5rem 1rem;
+  background-color: #00b894;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.alert-button:hover {
+  background-color: #019875;
+}
+
+@media (max-width: 768px) {
+  .alerts-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .alert-card {
+    width: 90%;
+  }
 
   .alerts-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 2rem;
+    font-size: 2rem;
   }
-  
+
+  .alert-input {
+    font-size: 1rem;
+  }
+
+  .alert-button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (min-width: 1150px) {
   .alerts-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     gap: 2rem;
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
   }
-  
-  .alert-card {
-    width: 480px;
-    min-height: 180px;
-    border-radius: 1rem;
-    padding: 1rem;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    border: 2px solid #e5e7eb;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  }
-  .alert-card:hover {
-    transform: scale(1.03);
-  }
-  .status-ok {
-    border-color: #4ade80;
-    color: #15803d;
-  }
-  .status-warning {
-    border-color: #facc15;
-    color: #a16207;
-  }
-  .status-critical {
-    border-color: #ef4444;
-    color: #991b1b;
-  }
-  
-  .loading-msg {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #ccc;
-    margin-top: 2rem;
-  }
-  
-  .alerts-water-pump {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  
+}
+
+.waterpump-live-wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 6rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
