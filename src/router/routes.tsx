@@ -8,7 +8,6 @@ import Dashboard from "../components/dashboard/Dashboard";
 import ControlPanel from "../features/control/GreenhouseControl";
 import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
-import MachineLearning from "../features/machine-learning/MachineLearning";
 import ProtectedRoute from "./ProtectedRoute";
 
 const BASE_NAME = import.meta.env.MODE === "development" ? "/" : "/Greenhouse-Frontend/";
@@ -34,7 +33,7 @@ const router = createBrowserRouter(
             { path: "control", element: <ControlPanel /> },
             { path: "history", element: <History /> },
             { path: "alerts", element: <Alerts /> },
-            { path: "machine-learning", element: <MachineLearning /> },
+            
           ],
         },
       ],

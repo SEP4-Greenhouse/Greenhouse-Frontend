@@ -51,3 +51,33 @@ export async function sendPredictionRequest(input: SensorDataDto): Promise<Predi
   }
   return await response.json();
 }
+
+
+//this also belongs to the control feature
+//             |
+//             V
+export type GreenhouseControlDto = {
+  temperature: number;
+  humidity: number;
+  ledOn: boolean;
+  waterpumpOn: boolean;
+  lightingLevel: number;
+};
+
+/** send control settings to backend */
+export async function sendControlSettings(data: GreenhouseControlDto): Promise<void> {
+  const response = await fetch(`${BASE_URL}/api/control`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to send control settings');
+  }
+}
+
+
+
