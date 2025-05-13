@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Alerts.css';
 import WaterPumpLive from './WaterPumpLive';
+import { sendThresholdSetting, ThresholdDto } from '../../api/apiService';
 
 const Alerts: React.FC = () => {
   const [thresholds, setThresholds] = useState({
@@ -15,17 +16,29 @@ const Alerts: React.FC = () => {
     setThresholds(prev => ({ ...prev, [type]: event.target.value }));
   };
 
-  const handleSetThreshold = (type: string) => {
+  const handleSetThreshold = async (type: string) => {
     const value = thresholds[type as keyof typeof thresholds];
     if (value === '') return alert('Please enter a threshold value');
-    alert(`Threshold for ${type} set to ${value}`);
+
+    const dto: ThresholdDto = {
+      type: type as ThresholdDto['type'],
+      value: parseFloat(value)
+    };
+
+    try {
+      await sendThresholdSetting(dto);
+      alert(`Threshold for ${type} set to ${value}`);
+    } catch (error) {
+      console.error(error);
+      alert(`Failed to set threshold for ${type}`);
+    }
   };
 
   return (
     <div className="alerts-container">
       <h1 className="alerts-title">🌿 Set Alert Thresholds</h1>
       <div className="alerts-grid">
-        {['temperature', 'humidity', 'light', 'led', 'water Pump'].map((type) => (
+        {['temperature', 'humidity', 'light', 'led', 'waterPump'].map((type) => (
           <div className="alert-card" key={type}>
             <h2 className="alert-label">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
             <input
@@ -43,7 +56,6 @@ const Alerts: React.FC = () => {
       </div>
 
       <div className="waterpump-live-wrapper">
-        <h2 className="alert-label"></h2>
         <WaterPumpLive />
       </div>
     </div>
