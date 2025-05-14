@@ -25,9 +25,17 @@ export function useGreenhouseStats(): UseStatsResult {
     async function loadData() {
       try {
         const data: SensorDataDto[] = await fetchLatestSensorData();
+        console.log("Fetched raw data:", data); // <-- Add this line
 
-        const getValue = (key: string): number | undefined =>
-          data.find((s) => s.sensorType.toLowerCase() === key.toLowerCase())?.value;
+
+        const getValue = (key: string): number | undefined => {
+          const match = data.find((s) => s.sensorType.toLowerCase() === key.toLowerCase());
+          if (!match) {
+            console.warn(`No match found for sensor key: ${key}`);
+          }
+          return match?.value;
+        };
+        
 
         const temp = getValue("Temperature") ?? 0;
         const hum = getValue("Humidity") ?? 0;
