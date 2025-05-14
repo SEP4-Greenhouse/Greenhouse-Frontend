@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5284';
+//this localhost url shoud not be hardcoded in the frontend
+// we need to figure out how to get the backend url dynamically!!!!
+const BASE_URL = 'http://localhost:5001';
 
 /** sensor data type */
 export type SensorDataDto = {
@@ -19,14 +21,22 @@ export type PredictionLog = {
   timestamp: string;
 };
 
-/** fetch the latest mock sensor data (temperature, humidity) */
+/** fetch the latest dummy sensor data for development */
+// src/api/apiService.ts
 export async function fetchLatestSensorData(): Promise<SensorDataDto[]> {
-  const response = await fetch(`${BASE_URL}/api/ml/latest-data`);
+  const response = await fetch(`${BASE_URL}/api/sensordata/dummy-latest`, {
+    cache: "no-store" // 👈 Add this to force a fresh fetch every time
+  });
+
   if (!response.ok) {
     throw new Error('Failed to fetch latest sensor data');
   }
-  return await response.json();
+
+  const result = await response.json();
+  console.log("Fetched sensor data:", result); // 👈 LOG HERE
+  return result;
 }
+
 
 /** fetch all prediction logs */
 export async function fetchPredictionLogs(): Promise<PredictionLog[]> {
@@ -52,10 +62,7 @@ export async function sendPredictionRequest(input: SensorDataDto): Promise<Predi
   return await response.json();
 }
 
-
-//this also belongs to the control feature
-//             |
-//             V
+/** greenhouse control data structure */
 export type GreenhouseControlDto = {
   temperature: number;
   humidity: number;
@@ -66,11 +73,9 @@ export type GreenhouseControlDto = {
 
 /** send control settings to backend */
 export async function sendControlSettings(data: GreenhouseControlDto): Promise<void> {
-  const response = await fetch(`${BASE_URL}/api/control`, {
+  const response = await fetch(`${BASE_URL}/api/sensordata/control`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
@@ -78,6 +83,3 @@ export async function sendControlSettings(data: GreenhouseControlDto): Promise<v
     throw new Error('Failed to send control settings');
   }
 }
-
-
-
