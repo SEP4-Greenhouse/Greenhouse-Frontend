@@ -104,3 +104,20 @@ export async function sendThresholdSetting(data: ThresholdDto): Promise<void> {
     throw new Error('Failed to send threshold setting');
   }
 }
+export type HistoryDataPoint = {
+  time: string; // e.g., "12:00", "13:00"
+  value: number;
+};
+
+export async function fetchHistoricalSensorData(sensorType: string, granularity: "minute" | "hour" | "day"): Promise<HistoryDataPoint[]> {
+  const response = await fetch(`${BASE_URL}/api/sensordata/history?sensorType=${sensorType}&range=${granularity}`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${sensorType} history for ${granularity}`);
+  }
+
+  return await response.json();
+}
+
