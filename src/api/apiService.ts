@@ -83,3 +83,24 @@ export async function sendControlSettings(data: GreenhouseControlDto): Promise<v
     throw new Error('Failed to send control settings');
   }
 }
+
+/** Threshold submission DTO */
+export type ThresholdDto = {
+  type: 'temperature' | 'humidity' | 'light' | 'led' | 'waterPump';
+  value: number;
+};
+
+/** send threshold setting to backend */
+export async function sendThresholdSetting(data: ThresholdDto): Promise<void> {
+  const response = await fetch(`${BASE_URL}/api/thresholds`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to send threshold setting');
+  }
+}
