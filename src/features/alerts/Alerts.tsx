@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Alerts.css';
 import WaterPumpLive from './WaterPumpLive';
-import { sendThresholdSetting, ThresholdDto } from '../../api/apiService';
+import { useAlertsThreshold } from './useAlertsThreshold';
 
 const Alerts: React.FC = () => {
   const [thresholds, setThresholds] = useState({
@@ -12,26 +12,20 @@ const Alerts: React.FC = () => {
     waterPump: ''
   });
 
+  const { saveThreshold, isSaving, success, error } = useAlertsThreshold();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
     setThresholds(prev => ({ ...prev, [type]: event.target.value }));
   };
 
-  const handleSetThreshold = async (type: string) => {
+  const handleSetThreshold = (type: string) => {
     const value = thresholds[type as keyof typeof thresholds];
     if (value === '') return alert('Please enter a threshold value');
 
-    const dto: ThresholdDto = {
-      type: type as ThresholdDto['type'],
-      value: parseFloat(value)
-    };
-
-    try {
-      await sendThresholdSetting(dto);
-      alert(`Threshold for ${type} set to ${value}`);
-    } catch (error) {
-      console.error(error);
-      alert(`Failed to set threshold for ${type}`);
-    }
+    saveThreshold({
+      type: type as any,
+      value: parseFloat(value),
+    });
   };
 
   return (
@@ -48,12 +42,15 @@ const Alerts: React.FC = () => {
               onChange={(e) => handleInputChange(e, type)}
               placeholder="Enter threshold"
             />
-            <button className="alert-button" onClick={() => handleSetThreshold(type)}>
-              Set Threshold
+            <button className="alert-button" onClick={() => handleSetThreshold(type)} disabled={isSaving}>
+              {isSaving ? "Sending..." : "Set Threshold"}
             </button>
           </div>
         ))}
       </div>
+
+      {success && <p className="success-text">✅ Threshold updated successfully.</p>}
+      {error && <p className="error-text">{error}</p>}
 
       <div className="waterpump-live-wrapper">
         <WaterPumpLive />
