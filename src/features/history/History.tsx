@@ -1,13 +1,7 @@
 import { useState } from "react";
 import HistoryChart from "./HistoryChart";
+import { SENSOR_CONFIG } from "../../config/sensorConfig";
 import "./history.css";
-
-const sensors = [
-  { type: "Temperature", color: "#22c55e", unit: "°C" },
-  { type: "Humidity", color: "#3b82f6", unit: "%" },
-  { type: "Lighting", color: "#eab308", unit: "lx" },
-  { type: "WaterPump", color: "#06b6d4", unit: "" },
-];
 
 const History = () => {
   const [granularity, setGranularity] = useState<"minute" | "hour" | "day">("hour");
@@ -23,13 +17,14 @@ const History = () => {
       </div>
 
       <div className="charts-grid">
-        {sensors.map((sensor) => (
-          <div className="chart-card" key={sensor.type}>
+        {SENSOR_CONFIG.filter(s => !s.isBoolean).map((sensor) => (
+          <div className="chart-card" key={sensor.key}>
             <HistoryChart
-              sensorType={sensor.type}
+              sensorType={sensor.key}
               granularity={granularity}
               color={sensor.color}
               unit={sensor.unit}
+              yMax={sensor.yMax}
             />
           </div>
         ))}
