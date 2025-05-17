@@ -18,6 +18,9 @@ html, body {
   margin-bottom: 5rem;
   font-weight: bold;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .alerts-grid {

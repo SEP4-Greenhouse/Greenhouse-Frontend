@@ -1,14 +1,14 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: 'Manrope', sans-serif;
   background-color: #0F1A17 !important;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* Main Dashboard Container */
@@ -21,6 +21,7 @@ html, body {
   width: 100%;
   max-width: 1200px;
   padding: 2rem;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -107,3 +108,18 @@ html, body {
   border-bottom: 1px solid #ffffff22;
   font-size: 1.1rem;
 }
+
+@media (max-width: 768px) {
+  .alerts-panel {
+    padding: 1rem;
+    max-width: 100%;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+
+  .alerts-panel li {
+    font-size: 0.95rem;
+    padding: 0.4rem 0;
+  }
+}
+
