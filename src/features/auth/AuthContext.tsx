@@ -1,6 +1,6 @@
 // src/features/auth/AuthContext.tsx
 import { createContext, useContext, useState, useEffect } from "react";
-import * as auth from "../services/fakeAuthService"; // adjust path as needed
+import * as auth from "../services/fakeAuthService";
 
 const AuthContext = createContext<any>(null);
 

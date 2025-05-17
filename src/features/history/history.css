@@ -1,75 +1,102 @@
 .history-page {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .history-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 6rem;
-    text-align: center;
-  }
-  
-  .filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .filter-bar input,
-  .filter-bar button {
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    border: none;
-    font-size: 1rem;
-  }
-  
-  .filter-bar input {
-    background: #1f2937;
-    color: white;
-  }
-  
-  .filter-bar button {
-    background: #10b981;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .filter-bar button:hover {
-    background: #059669;
-  }
-  
-  .charts-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
-    max-width: 1600px;
-  }
-  
-  /* 🔺 MADE CHARTS BIGGER HERE */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.history-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 6rem;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-bar input,
+.filter-bar button {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+
+.filter-bar input {
+  background: #1f2937;
+  color: white;
+}
+
+.filter-bar button {
+  background: #10b981;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.filter-bar button:hover {
+  background: #059669;
+}
+
+.charts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1600px;
+}
+
+.chart-box {
+  background: rgba(30, 41, 59, 0.6);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #0f766e88;
+  width: 620px;
+  height: 300px;
+}
+
+.chart-title {
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsivness*/
+@media (max-width: 768px) {
   .chart-box {
-    background: rgba(30, 41, 59, 0.6);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #0f766e88;
-    width: 620px;  /* 🔺 was 320px before */
-    height: 300px; /* 🔺 was 250px before */
+    width: 92vw !important;  
+    max-width: 92vw;
+    margin-left: -1rem;      
+    margin-right: -1rem;
+    padding: 1.5rem 1rem;          
+    height: auto;
+    box-sizing: border-box;
   }
-  
-  .chart-title {
-    margin-bottom: 0.75rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-align: center;
+
+  .charts-grid {
+    flex-direction: column; 
+    padding: 0;
+    gap: 2rem; 
+    align-items: center; 
   }
-  
+
+  .history-page {
+    padding: 1.5rem 1rem;
+  }
+}
+
+}
