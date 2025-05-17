@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          iimage: marat1234/greenhouse-frontend:latest
+          image: marat1234/greenhouse-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
