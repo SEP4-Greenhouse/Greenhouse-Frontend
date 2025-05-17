@@ -1,6 +1,6 @@
 // src/App.tsx
 import { Outlet } from "react-router-dom";
-import { AuthProvider } from "./features/auth/AuthContext"; // ✅ Ensure path is correct
+import { AuthProvider } from "./features/auth/AuthContext";
 
 const App = () => {
   return (

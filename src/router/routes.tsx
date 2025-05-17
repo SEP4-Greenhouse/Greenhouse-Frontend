@@ -10,8 +10,6 @@ import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
 import ProtectedRoute from "./ProtectedRoute";
 
-const BASE_NAME = import.meta.env.MODE === "development" ? "/" : "/Greenhouse-Frontend/";
-
 const router = createBrowserRouter(
   [
     {
@@ -33,14 +31,13 @@ const router = createBrowserRouter(
             { path: "control", element: <ControlPanel /> },
             { path: "history", element: <History /> },
             { path: "alerts", element: <Alerts /> },
-            
           ],
         },
       ],
     },
   ],
   {
-    basename: BASE_NAME,
+    basename: "/", // always use root base path for our current deployment
   }
 );
 
