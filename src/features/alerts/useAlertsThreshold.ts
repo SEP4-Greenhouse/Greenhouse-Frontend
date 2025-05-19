@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ThresholdDto, sendThresholdSetting } from "../../api/apiService";
+import { ThresholdDto, sendThresholdSetting } from "../../api/thresholdService";
+
 
 export const useAlertsThreshold = () => {
   const [isSaving, setIsSaving] = useState(false);

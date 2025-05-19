@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../layout/sidebar.css";
-import { MdDashboard, MdBarChart, MdNotifications, MdTune } from "react-icons/md";
+import { MdDashboard, MdBarChart, MdNotifications, MdTune, MdAccountBox } from "react-icons/md";
 
 /** Hook to detect mobile screen width */
 const useIsMobile = (breakpoint = 768): boolean => {
@@ -26,6 +26,7 @@ const SidebarLayout = () => {
     { name: "History", path: "/app/history", icon: <MdBarChart /> },
     { name: "Alerts", path: "/app/alerts", icon: <MdNotifications /> },
     { name: "Control", path: "/app/control", icon: <MdTune /> },
+    { name: "Manage Account", path: "/app/account", icon: <MdAccountBox /> }
   ];
 
   const toggleSidebar = () => {

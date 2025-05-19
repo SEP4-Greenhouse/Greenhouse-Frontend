@@ -9,6 +9,7 @@ import ControlPanel from "../features/control/GreenhouseControl";
 import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
 import ProtectedRoute from "./ProtectedRoute";
+import Account from "../pages/Account";
 
 const router = createBrowserRouter(
   [
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
             { path: "control", element: <ControlPanel /> },
             { path: "history", element: <History /> },
             { path: "alerts", element: <Alerts /> },
+            {path: "account", element: <Account />},
           ],
         },
       ],

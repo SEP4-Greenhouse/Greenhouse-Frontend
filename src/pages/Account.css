@@ -1,0 +1,52 @@
+.account-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #1b2a26;
+  border-radius: 8px;
+}
+
+.account-container h1 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.account-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 0.5rem 0 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.account-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.save-btn, .cancel-btn {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #22c55e;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.status-text {
+  margin-bottom: 1rem;
+  color: #facc15;
+}

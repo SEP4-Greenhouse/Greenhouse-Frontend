@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchLatestSensorData, SensorDataDto } from "../../api/apiService";
+import { fetchLatestSensorData, SensorDataDto } from "../../api/sensorService";
 import { SensorKey } from "../../config/sensorConfig";
 
 type StatsType = Record<SensorKey, string | number>;
