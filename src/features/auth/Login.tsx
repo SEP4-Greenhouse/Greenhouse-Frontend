@@ -12,10 +12,11 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Backend API integration: Login
-      // Call the `login` function from AuthContext, which sends a request to the backend
       await login(username, password);
-      navigate("/app/dashboard");
+      
+      localStorage.setItem("username", username);
+
+      navigate("/post-login");
     } catch (err) {
       alert("Login failed");
     }
@@ -39,11 +40,12 @@ const Login = () => {
           />
           <button type="submit">Login</button>
         </form>
-        <p className="switch-auth">Don't have an account? <a href="/register">Register here</a></p>
+        <p className="switch-auth">
+          Don't have an account? <a href="/register">Register here</a>
+        </p>
       </div>
     </div>
   );
-  
 };
 
 export default Login;

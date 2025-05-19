@@ -1,0 +1,125 @@
+.page {
+    min-height: 100vh;
+    background-color: #0F1A17;
+    color: white;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 4rem;
+    text-align: center;
+    background: linear-gradient(to right, #a8ff78, #78ffd6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+  }
+  
+  .formContainer {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.1);
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  
+  .inputGroup label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #9fffb8;
+  }
+  
+  .inputGroup input {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .inputGroup input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .stageContainer {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(144, 255, 198, 0.1);
+  }
+  
+  .stageTitle {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #a8ff78;
+  }
+  
+  .submitButton {
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 14px;
+    background-color: #1e4033;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #2b5d49;
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .formContainer,
+    .stageContainer {
+      width: 100%;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .submitButton {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+  
