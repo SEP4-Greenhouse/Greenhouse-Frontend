@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { sendControlSettings } from "../../api/apiService";
-import { GreenhouseControlDto } from "../../api/apiService"; 
+import { sendControlSettings, GreenhouseControlDto } from "../../api/controlService";
+
 
 export function useGreenhouseControl() {
   const [isSaving, setIsSaving] = useState(false);

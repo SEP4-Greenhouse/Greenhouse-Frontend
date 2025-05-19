@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import './Login.css';
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../auth/Login.css";
 
 const Register = () => {
   const { register } = useAuth();
@@ -16,11 +16,25 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validation
+    if (form.username.length < 5) {
+      return setError("Username must be at least 5 characters long.");
+    }
+
+    if (form.password.length < 8) {
+      return setError("Password must be at least 8 characters long.");
+    }
+
+    if (!form.email.endsWith("@gmail.com")) {
+      return setError("Email must end with @gmail.com.");
+    }
+
     try {
       await register(form);
       navigate("/login");
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Registration failed");
     }
   };
 
@@ -33,12 +47,14 @@ const Register = () => {
           <input
             name="username"
             placeholder="Username"
+            value={form.username}
             onChange={handleChange}
             required
           />
           <input
             name="email"
             placeholder="Email"
+            value={form.email}
             onChange={handleChange}
             required
           />
@@ -46,12 +62,12 @@ const Register = () => {
             name="password"
             type="password"
             placeholder="Password"
+            value={form.password}
             onChange={handleChange}
             required
           />
           <button type="submit">Register</button>
         </form>
-
         <p className="switch-auth">
           Already have an account? <a href="/login">Login here</a>
         </p>
