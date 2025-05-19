@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    background-color: #0F1A17;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .buttonBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button {
+    background-color: #1e4033;
+    color: white;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #2b5d49;
+  }
+  
+  .subtext {
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+  }
+  
+  .fadeIn {
+    opacity: 0;
+    animation: fadeInAnim 0.8s ease forwards;
+  }
+  
+  @keyframes fadeInAnim {
+    to {
+      opacity: 1;
+    }
+  }
+  

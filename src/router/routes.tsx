@@ -9,6 +9,9 @@ import ControlPanel from "../features/control/GreenhouseControl";
 import History from "../features/history/History";
 import Alerts from "../features/alerts/Alerts";
 import ProtectedRoute from "./ProtectedRoute";
+import PostLoginPage from "../features/greenhouseSetup/PostLoginPage";
+import CreateGreenhousePage from "../features/greenhouseSetup/CreateGreenhousePage";
+
 
 const router = createBrowserRouter(
   [
@@ -19,6 +22,10 @@ const router = createBrowserRouter(
         { path: "", element: <Welcome /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
+        { path: "post-login", element: <PostLoginPage /> },
+        { path: "create-greenhouse", element: <CreateGreenhousePage /> },
+
+
         {
           path: "app",
           element: (
