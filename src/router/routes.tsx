@@ -11,7 +11,7 @@ import Alerts from "../features/alerts/Alerts";
 import ProtectedRoute from "./ProtectedRoute";
 import PostLoginPage from "../features/greenhouseSetup/PostLoginPage";
 import CreateGreenhousePage from "../features/greenhouseSetup/CreateGreenhousePage";
-
+import Account from "../pages/Account";
 
 const router = createBrowserRouter(
   [
@@ -38,6 +38,7 @@ const router = createBrowserRouter(
             { path: "control", element: <ControlPanel /> },
             { path: "history", element: <History /> },
             { path: "alerts", element: <Alerts /> },
+            {path: "account", element: <Account />},
           ],
         },
       ],

@@ -1,4 +1,3 @@
-// src/features/auth/AuthContext.tsx
 import { createContext, useContext, useState, useEffect } from "react";
 import * as auth from "../services/fakeAuthService";
 
@@ -20,6 +19,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const response = await auth.register(data);
     setToken(response.token);
     setUser(response.user);
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("user", JSON.stringify(response.user));
   };
 
   const handleLogout = () => {
@@ -37,7 +38,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, user, login: handleLogin, register: handleRegister, logout: handleLogout }}
+      value={{
+        token,
+        user,
+        setUser, // ✅ now exposed to components like <Account />
+        login: handleLogin,
+        register: handleRegister,
+        logout: handleLogout,
+      }}
     >
       {children}
     </AuthContext.Provider>
