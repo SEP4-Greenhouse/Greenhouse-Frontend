@@ -16,7 +16,15 @@ type GreenhouseContextType = {
 const GreenhouseContext = createContext<GreenhouseContextType | undefined>(undefined);
 
 export const GreenhouseProvider = ({ children }: { children: ReactNode }) => {
-  const [greenhouse, setGreenhouse] = useState<GreenhouseData | null>(null);
+  const [greenhouse, setGreenhouse] = useState<GreenhouseData | null>(() => { //makes the greenhouse stay after refresh
+    try {
+      const user = localStorage.getItem('username');
+      const saved = user ? localStorage.getItem(`greenhouse-${user}`) : null;
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
 
   return (
     <GreenhouseContext.Provider value={{ greenhouse, setGreenhouse }}>
