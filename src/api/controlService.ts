@@ -1,11 +1,13 @@
 import { BASE_URL } from "./baseUrl";
 
 export type GreenhouseControlDto = {
-  temperature: number;
-  humidity: number;
-  ledOn: boolean;
-  waterpumpOn: boolean;
-  lightingLevel: number;
+  temperature: number,
+  soilHumidity: number,
+  airHumidity:  number,
+  co2: number,
+  light: number,
+  ledOn: boolean,
+  waterpumpOn: boolean,
 };
 
 export async function sendControlSettings(data: GreenhouseControlDto): Promise<void> {

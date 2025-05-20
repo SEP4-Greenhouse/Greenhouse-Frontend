@@ -1,13 +1,17 @@
 import { BASE_URL } from "./baseUrl";
 
 export type SensorDataDto = {
-  sensorType: string;
+  id: number;
+  timeStamp: string;
   value: number;
-  timestamp: string;
+  unit: string;
+  sensorId: number;
 };
 
+
 export async function fetchLatestSensorData(): Promise<SensorDataDto[]> {
-  const response = await fetch(`${BASE_URL}/api/sensordata/dummy-latest`, { cache: "no-store" });
+  const response = await fetch(`${BASE_URL}/api/sensor/latest/all`, { cache: "no-store" });
   if (!response.ok) throw new Error('Failed to fetch latest sensor data');
   return await response.json();
 }
+
