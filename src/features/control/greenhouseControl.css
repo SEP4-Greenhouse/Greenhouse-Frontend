@@ -71,34 +71,66 @@
 }
 
 .control-actions {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 5rem;
 }
 
-.save-btn {
-  padding: 0.6rem 1.5rem;
-  background-color: #10b981;
-  color: white;
+.save-btn,
+.cancel-btn {
+  padding: 0.4rem 0.8rem;
+  width: auto;
+  min-width: 90px;
+  max-width: 100px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
   border: none;
   border-radius: 6px;
-  font-size: 1rem;
   cursor: pointer;
-  width: 100px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+
+
+.save-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #059669;
+  transform: scale(1.04);
 }
 
 .cancel-btn {
-  padding: 0.6rem 1.5rem;
   background-color: #ef4444;
   color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
 }
 
-/* Responsivness*/
+.cancel-btn:hover {
+  background-color: #dc2626;
+  transform: scale(1.04);
+}
+
+.success-text {
+  color: #4ade80;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.error-text {
+  color: #f87171;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Responsiveness */
 @media (max-width: 768px) {
   .control-box {
     width: 100% !important;
@@ -115,4 +147,4 @@
     gap: 1rem;
     padding: 0;
   }
-}
+} 

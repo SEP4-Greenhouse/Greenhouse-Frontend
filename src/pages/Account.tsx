@@ -31,7 +31,7 @@ const Account = () => {
   return (
     <div className="account-container">
       <h1>🧑‍💼 Manage Account</h1>
-      <p className="intro-text">Do you want to change your password?</p>
+      <p className="intro-text">Do you want to change your credentials?</p>
       {message && <p className="status-text">{message}</p>}
 
       <div className="form-group">
