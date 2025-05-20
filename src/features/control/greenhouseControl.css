@@ -94,8 +94,6 @@
   box-sizing: border-box;
 }
 
-
-
 .save-btn {
   background-color: #10b981;
   color: white;
@@ -130,7 +128,7 @@
   font-weight: 500;
 }
 
-/* Responsiveness */
+/* responsiveness */
 @media (max-width: 768px) {
   .control-box {
     width: 100% !important;
