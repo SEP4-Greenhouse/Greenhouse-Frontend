@@ -4,7 +4,7 @@ import "../pages/Account.css";
 import { updateAccount } from "../features/services/fakeAuthService";
 
 const Account = () => {
-  const { user, setUser } = useAuth(); // 👈 get setUser from AuthContext
+  const { user, setUser } = useAuth();
   const [username, setUsername] = useState(user?.username || "");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -15,8 +15,7 @@ const Account = () => {
 
     try {
       const updated = await updateAccount({ username, password });
-
-      setUser(updated); // 👈 update global user context
+      setUser(updated);
       setMessage("✅ Account updated successfully.");
     } catch (err) {
       setMessage("❌ Failed to update account.");
@@ -31,17 +30,29 @@ const Account = () => {
 
   return (
     <div className="account-container">
-      <h1>Manage Account</h1>
+      <h1>🧑‍💼 Manage Account</h1>
+      <p className="intro-text">Do you want to change your password?</p>
       {message && <p className="status-text">{message}</p>}
-      <label>Username</label>
-      <input value={username} onChange={(e) => setUsername(e.target.value)} />
-      <label>New Password</label>
-      <input
-        type="password"
-        value={password}
-        placeholder="Enter new password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+
+      <div className="form-group">
+        <label>Username</label>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>New Password</label>
+        <input
+          type="password"
+          value={password}
+          placeholder="Enter new password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+
       <div className="account-actions">
         <button className="save-btn" onClick={handleSave}>Save</button>
         <button className="cancel-btn" onClick={handleCancel}>Cancel</button>

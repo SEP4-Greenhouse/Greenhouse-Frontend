@@ -17,7 +17,7 @@ const Dashboard = () => {
 
       {greenhouse && (
         <div className="greenhouse-card glass">
-          <h2 className="greenhouse-title">Your Greenhouse</h2>
+          <h2 className="greenhouse-title">{greenhouse.greenhouseName || 'Your Greenhouse'}</h2>
           <div className="greenhouse-grid">
             <div className="greenhouse-field">
               <span className="label">🌱 Type:</span>

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 type GreenhouseData = {
+  greenhouseName: string;
   plantType: string;
   plantSpecies: string;
   plantingDate: string;
