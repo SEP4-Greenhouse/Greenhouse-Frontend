@@ -5,6 +5,7 @@ import GrowthStageSelector from './components/GrowthStageSelector';
 import { useGreenhouse } from './GreenhouseContext';
 
 const CreateGreenhousePage = () => {
+  const [greenhouseName, setGreenhouseName] = useState('');
   const [plantType, setPlantType] = useState('');
   const [plantSpecies, setPlantSpecies] = useState('');
   const [plantingDate, setPlantingDate] = useState('');
@@ -14,12 +15,13 @@ const CreateGreenhousePage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (!plantType || !plantSpecies || !plantingDate || !selectedStage) {
+    if (!greenhouseName || !plantType || !plantSpecies || !plantingDate || !selectedStage) {
       alert('Please fill all fields and select a growth stage.');
       return;
     }
 
     const newGreenhouse = {
+      greenhouseName,
       plantType,
       plantSpecies,
       plantingDate,
@@ -41,15 +43,25 @@ const CreateGreenhousePage = () => {
       <h1 className={styles.title}>🌿 Create Your New Greenhouse</h1>
 
       <div className={styles.content}>
-        {/* left form */}
+        {/* left side */}
         <div className={styles.formContainer}>
+          <div className={styles.inputGroup}>
+            <label>Greenhouse Name</label>
+            <input
+              type="text"
+              value={greenhouseName}
+              onChange={(e) => setGreenhouseName(e.target.value)}
+              placeholder="e.g., My Greenhouse"
+            />
+          </div>
+
           <div className={styles.inputGroup}>
             <label>Type of Plant</label>
             <input
               type="text"
               value={plantType}
               onChange={(e) => setPlantType(e.target.value)}
-              placeholder="e.g., Tomato"
+              placeholder="e.g., Vegetable"
             />
           </div>
 
@@ -59,7 +71,7 @@ const CreateGreenhousePage = () => {
               type="text"
               value={plantSpecies}
               onChange={(e) => setPlantSpecies(e.target.value)}
-              placeholder="e.g., Cherry"
+              placeholder="e.g., Tomato"
             />
           </div>
 
@@ -73,7 +85,7 @@ const CreateGreenhousePage = () => {
           </div>
         </div>
 
-        {/* right form */}
+        {/* right side */}
         <div className={styles.stageContainer}>
           <h2 className={styles.stageTitle}>Select Growth Stage</h2>
           <GrowthStageSelector

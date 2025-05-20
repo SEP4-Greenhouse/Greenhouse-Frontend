@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  proxy:
+    build:
+      context: ./proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - greenhouse-network
+
+  backend:
+    image: greenhouse-backend-backend
+    container_name: greenhouse-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - greenhouse-network
+
+networks:
+  greenhouse-network:
+    driver: bridge
