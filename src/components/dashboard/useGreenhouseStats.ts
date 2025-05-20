@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { fetchLatestSensorData, SensorDataDto } from "../../api/sensorService";
-import { SensorKey } from "../../config/sensorConfig";
+import { SensorKey } from "../../config/sensorConfig"
+
+// SensorId-to-type mapping
+const SENSOR_ID_TYPE_MAP: Record<number, SensorKey> = {
+  1: "Temperature",
+  2: "SoilHumidity",
+  3: "AirHumidity",
+  4: "CO2",
+  5: "Light",
+  6: "PIR",
+  7: "Proximity",
+};
 
 type StatsType = Record<SensorKey, string | number>;
 type UseStatsResult = {
@@ -11,11 +22,13 @@ type UseStatsResult = {
 
 export function useGreenhouseStats(): UseStatsResult {
   const [stats, setStats] = useState<StatsType>({
-    Lighting: 0,
-    LED: "Unknown",
-    WaterPump: "Unknown",
     Temperature: 0,
-    Humidity: 0,
+    SoilHumidity: 0,
+    AirHumidity: 0,
+    CO2: 0,
+    Light: 0,
+    PIR: "None",
+    Proximity: "None",
   });
 
   const [alerts, setAlerts] = useState<string[]>([]);
@@ -25,36 +38,33 @@ export function useGreenhouseStats(): UseStatsResult {
     async function loadData() {
       try {
         const data: SensorDataDto[] = await fetchLatestSensorData();
-        console.log("Fetched raw data:", data); // <-- Add this line
+        console.log("Fetched raw sensor data:", data);
 
+        const updatedStats: StatsType = { ...stats };
 
-        const getValue = (key: string): number | undefined => {
-          const match = data.find((s) => s.sensorType.toLowerCase() === key.toLowerCase());
-          if (!match) {
-            console.warn(`No match found for sensor key: ${key}`);
+        data.forEach((reading) => {
+          const sensorKey = SENSOR_ID_TYPE_MAP[reading.sensorId];
+          if (!sensorKey) return;
+
+          if (sensorKey === "PIR") {
+            updatedStats[sensorKey] = reading.value === 1 ? "Detected" : "None";
+          } else if (sensorKey === "Proximity") {
+            updatedStats[sensorKey] = reading.value === 1 ? "Near" : "Far";
+          } else {
+            updatedStats[sensorKey] = `${reading.value} ${reading.unit || ""}`;
           }
-          return match?.value;
-        };
-        
-
-        const temp = getValue("Temperature") ?? 0;
-        const hum = getValue("Humidity") ?? 0;
-
-        const updatedStats: StatsType = {
-          Lighting: getValue("Lighting") ?? 0,
-          LED: getValue("LED") === 1 ? "On" : "Off",
-          WaterPump: getValue("WaterPump") === 1 ? "On" : "Off",
-          Temperature: temp,
-          Humidity: hum,
-        };
+        });
 
         setStats(updatedStats);
 
+        const tempReading = data.find((r) => r.sensorId === 1)?.value ?? 0;
+        const airHumidityReading = data.find((r) => r.sensorId === 3)?.value ?? 0;
+
         const newAlert =
-          temp > 28
-            ? `⚠️ High temperature alert: ${temp.toFixed(1)}°C`
-            : hum < 55
-            ? `💧 Low humidity: ${hum.toFixed(0)}%`
+          tempReading > 28
+            ? `⚠️ High temperature alert: ${tempReading.toFixed(1)}°C`
+            : airHumidityReading < 30
+            ? `💧 Low air humidity: ${airHumidityReading.toFixed(0)}%`
             : null;
 
         if (newAlert) {

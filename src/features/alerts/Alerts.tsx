@@ -6,10 +6,9 @@ import { useAlertsThreshold } from './useAlertsThreshold';
 const Alerts: React.FC = () => {
   const [thresholds, setThresholds] = useState({
     temperature: '',
-    humidity: '',
-    light: '',
-    led: '',
-    waterPump: ''
+    soilHumidity: '',
+    airHumidity: '',
+    co2: ''
   });
 
   const { saveThreshold, isSaving, success, error } = useAlertsThreshold();
@@ -28,21 +27,28 @@ const Alerts: React.FC = () => {
     });
   };
 
+  const SENSOR_TYPES = [
+    { key: "temperature", label: "Temperature" },
+    { key: "soilHumidity", label: "Soil Humidity" },
+    { key: "airHumidity", label: "Air Humidity" },
+    { key: "co2", label: "CO2" }
+  ];
+
   return (
     <div className="alerts-container">
       <h1 className="alerts-title">🌿 Set Alert Thresholds</h1>
       <div className="alerts-grid">
-        {['temperature', 'humidity', 'light', 'led', 'waterPump'].map((type) => (
-          <div className="alert-card" key={type}>
-            <h2 className="alert-label">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
+        {SENSOR_TYPES.map(({ key, label }) => (
+          <div className="alert-card" key={key}>
+            <h2 className="alert-label">{label}</h2>
             <input
               type="number"
               className="alert-input"
-              value={thresholds[type as keyof typeof thresholds]}
-              onChange={(e) => handleInputChange(e, type)}
+              value={thresholds[key as keyof typeof thresholds]}
+              onChange={(e) => handleInputChange(e, key)}
               placeholder="Enter threshold"
             />
-            <button className="alert-button" onClick={() => handleSetThreshold(type)} disabled={isSaving}>
+            <button className="alert-button" onClick={() => handleSetThreshold(key)} disabled={isSaving}>
               {isSaving ? "Sending..." : "Set Threshold"}
             </button>
           </div>
