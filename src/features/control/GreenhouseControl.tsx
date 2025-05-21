@@ -2,24 +2,25 @@ import { useState } from "react";
 import "./greenhouseControl.css";
 import { useGreenhouseControl } from "./useGreenhouseControl";
 import { GreenhouseControlDto } from "../../api/controlService";
+
 const GreenhouseControl = () => {
   const { saveSettings, isSaving, error, success } = useGreenhouseControl();
 
   const [controls, setControls] = useState<GreenhouseControlDto>({
-  temperature: 25,
-  soilHumidity: 50,
-  airHumidity: 50,
-  co2: 30,
-  light: 400,
-  ledOn: false,
-  waterpumpOn: false,
-});
+    temperature: 25,
+    soilHumidity: 50,
+    airHumidity: 50,
+    co2: 30,
+    light: 400,
+    ledOn: false,
+    waterpumpOn: false,
+  });
 
-  const handleSliderChange = (key: string, value: number) => {
+  const handleSliderChange = (key: keyof GreenhouseControlDto, value: number) => {
     setControls(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleToggle = (key: "ledOn" | "waterpumpOn") => {
+  const handleToggle = (key: keyof Pick<GreenhouseControlDto, 'ledOn' | 'waterpumpOn'>) => {
     setControls(prev => ({ ...prev, [key]: !prev[key] }));
   };
 

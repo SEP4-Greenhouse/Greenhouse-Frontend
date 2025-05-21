@@ -9,7 +9,6 @@ export function useGreenhouseControl() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  
   const saveSettings = async (settings: GreenhouseControlDto): Promise<void> => {
     setIsSaving(true);
     setError(null);

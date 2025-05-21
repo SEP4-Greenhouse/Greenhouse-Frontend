@@ -1,52 +1,61 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import * as auth from "../services/fakeAuthService";
+// src/features/auth/AuthContext.tsx
+import {
+  login as loginApi,
+  register as registerApi,
+  getMe,
+} from "../../api/authService"; // Adjust the import path as necessary
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 const AuthContext = createContext<any>(null);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [token, setToken] = useState<string | null>(auth.getToken());
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const [user, setUser] = useState<any>(null);
 
-  const handleLogin = async (username: string, password: string) => {
-    const response = await auth.login(username, password);
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!token) return;
+
+      try {
+        const userInfo = await getMe(token);
+        setUser(userInfo);
+      } catch {
+        logout();
+      }
+    };
+
+    fetchUser();
+  }, [token]);
+
+  const login = async (email: string, password: string) => {
+    const response = await loginApi({ email, password });
     setToken(response.token);
-    setUser(response.user);
     localStorage.setItem("token", response.token);
-    localStorage.setItem("user", JSON.stringify(response.user));
   };
 
-  const handleRegister = async (data: auth.User) => {
-    const response = await auth.register(data);
-    setToken(response.token);
-    setUser(response.user);
-    localStorage.setItem("token", response.token);
-    localStorage.setItem("user", JSON.stringify(response.user));
+  const register = async (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    const newUser = await registerApi(data);
+    return newUser;
   };
 
-  const handleLogout = () => {
-    auth.logout();
+  const logout = () => {
     setToken(null);
     setUser(null);
+    localStorage.removeItem("token");
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        user,
-        setUser, // ✅ now exposed to components like <Account />
-        login: handleLogin,
-        register: handleRegister,
-        logout: handleLogout,
-      }}
-    >
+    <AuthContext.Provider value={{ token, user, login, register, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );
