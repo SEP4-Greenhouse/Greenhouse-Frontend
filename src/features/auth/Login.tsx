@@ -6,19 +6,20 @@ import './Login.css';
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await login(username, password);
-      
-      localStorage.setItem("username", username);
+    setError("");
 
+    try {
+      await login(email, password);
       navigate("/post-login");
-    } catch (err) {
-      alert("Login failed");
+    } catch (err: any) {
+      setError("Login failed. Please check your credentials.");
     }
   };
 
@@ -27,16 +28,20 @@ const Login = () => {
       <div className="login-box">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
+          {error && <p className="error">{error}</p>}
           <input
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            required
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button type="submit">Login</button>
         </form>

@@ -7,7 +7,7 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,22 +16,28 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
-    // Validation
-    if (form.username.length < 5) {
-      return setError("Username must be at least 5 characters long.");
+    // Simple client-side validation
+    if (form.name.length < 3) {
+      return setError("Name must be at least 3 characters long.");
     }
 
     if (form.password.length < 8) {
       return setError("Password must be at least 8 characters long.");
     }
 
-    if (!form.email.endsWith("@gmail.com")) {
-      return setError("Email must end with @gmail.com.");
+    if (!form.email.includes("@") || !form.email.includes(".")) {
+      return setError("Please enter a valid email address.");
     }
 
     try {
-      await register(form);
+      await register({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+
       navigate("/login");
     } catch (err: any) {
       setError(err.message || "Registration failed");
@@ -45,15 +51,16 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
           {error && <p className="error">{error}</p>}
           <input
-            name="username"
-            placeholder="Username"
-            value={form.username}
+            name="name"
+            placeholder="Name"
+            value={form.name}
             onChange={handleChange}
             required
           />
           <input
             name="email"
             placeholder="Email"
+            type="email"
             value={form.email}
             onChange={handleChange}
             required

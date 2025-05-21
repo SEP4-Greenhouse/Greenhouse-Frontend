@@ -1,29 +1,46 @@
 import { useState } from "react";
 import { useAuth } from "../features/auth/AuthContext";
 import "../pages/Account.css";
-import { updateAccount } from "../features/services/fakeAuthService";
+import { updateName, updatePassword } from "../api/authService";
 
 const Account = () => {
-  const { user, setUser } = useAuth();
-  const [username, setUsername] = useState(user?.username || "");
+  const { user, token, setUser } = useAuth();
+
+  const [name, setName] = useState(user?.name || "");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSave = async () => {
-    if (username.length < 5) return setMessage("❌ Username must be at least 5 characters.");
-    if (password.length < 8) return setMessage("❌ Password must be at least 8 characters.");
+    setMessage("");
+
+    if (name.length < 3) {
+      return setMessage("❌ Name must be at least 3 characters.");
+    }
 
     try {
-      const updated = await updateAccount({ username, password });
-      setUser(updated);
+      // Update name if changed
+      if (name !== user.name) {
+        await updateName(name, token);
+        setUser({ ...user, name }); // Update local context
+      }
+
+      // Update password if set
+      if (password.trim()) {
+        if (password.length < 8) {
+          return setMessage("❌ Password must be at least 8 characters.");
+        }
+        await updatePassword(password, token);
+      }
+
       setMessage("✅ Account updated successfully.");
-    } catch (err) {
+    } catch (err: any) {
+      console.error(err);
       setMessage("❌ Failed to update account.");
     }
   };
 
   const handleCancel = () => {
-    setUsername(user?.username || "");
+    setName(user?.name || "");
     setPassword("");
     setMessage("Changes discarded.");
   };
@@ -35,11 +52,11 @@ const Account = () => {
       {message && <p className="status-text">{message}</p>}
 
       <div className="form-group">
-        <label>Username</label>
+        <label>Name</label>
         <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter your username"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter your name"
         />
       </div>
 
