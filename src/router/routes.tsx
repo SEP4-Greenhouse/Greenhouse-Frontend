@@ -45,7 +45,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/", // always use root base path for our current deployment
+    basename: "/Greenhouse-Frontend/", 
   }
 );
 
