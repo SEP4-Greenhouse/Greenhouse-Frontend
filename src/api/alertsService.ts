@@ -1,0 +1,28 @@
+import { BASE_URL } from "./baseUrl";
+
+export type AlertDto = {
+  sensorReadingId: number;
+  message: string;
+};
+
+export async function createSensorAlert(dto: AlertDto): Promise<void> {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User not authenticated");
+
+  const response = await fetch(
+    `${BASE_URL}/api/alerts/sensor?sensorReadingId=${dto.sensorReadingId}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto.message),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Failed to create alert: ${error}`);
+  }
+}

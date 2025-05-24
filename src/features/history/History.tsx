@@ -17,10 +17,11 @@ const History = () => {
       </div>
 
       <div className="charts-grid">
-        {SENSOR_CONFIG.filter(s => !s.isBoolean).map((sensor) => (
+        {SENSOR_CONFIG.filter(sensor => !sensor.isBoolean).map(sensor => (
           <div className="chart-card" key={sensor.key}>
             <HistoryChart
-              sensorType={sensor.key}
+              sensorKey={sensor.key}
+              title={sensor.label}
               granularity={granularity}
               color={sensor.color}
               unit={sensor.unit}

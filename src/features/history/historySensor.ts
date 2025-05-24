@@ -1,5 +1,5 @@
-import { BASE_URL } from "./baseUrl";
-import { SENSOR_ID_TYPE_MAP, SensorKey } from "../config/sensorConfig";
+import { BASE_URL } from "../../api/baseUrl";
+import { SENSOR_ID_TYPE_MAP, SensorKey } from "../../config/sensorConfig";
 
 export type HistoryDataPoint = {
   time: string;
@@ -35,7 +35,6 @@ export async function fetchHistoricalSensorData(
 
   const allReadings = await response.json();
 
-  // Map and filter data to the selected sensorType using SENSOR_ID_TYPE_MAP
   return allReadings
     .filter((r: any) => SENSOR_ID_TYPE_MAP[r.sensorId] === sensorType)
     .map((r: any) => ({

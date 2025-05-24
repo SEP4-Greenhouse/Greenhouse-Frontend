@@ -2,21 +2,23 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { useHistoricalData } from "./useHistoricalData";
+import { SensorKey } from "../../config/sensorConfig";
 
 type Props = {
-  sensorType: string;
+  sensorKey: SensorKey;
+  title: string;
   granularity: "minute" | "hour" | "day";
   color: string;
   unit?: string;
   yMax?: number;
 };
 
-const HistoryChart = ({ sensorType, granularity, color, unit, yMax }: Props) => {
-  const { data, error } = useHistoricalData(sensorType, granularity);
+const HistoryChart = ({ sensorKey, title, granularity, color, unit, yMax }: Props) => {
+  const { data, error } = useHistoricalData(sensorKey, granularity);
 
   return (
     <div className="chart-box">
-      <h2 className="chart-title">{sensorType}</h2>
+      <h2 className="chart-title">{title}</h2>
       {error && <p className="error-text">{error}</p>}
       <ResponsiveContainer width="100%" height={200}>
         <LineChart data={data}>
