@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Greenhouse-Frontend/', // ✅ This is the key fix
+  base: '/Greenhouse-Frontend/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
