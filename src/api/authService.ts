@@ -1,10 +1,8 @@
-// src/services/authService.ts
 import axios from "axios";
+import { BASE_URL } from "../api/baseUrl"; // ✅ adjust path if needed
 
-// ✅ Base URL to your backend
-const API = "http://localhost:5001/api";
+const API = `${BASE_URL}/api`;
 
-// ✅ DTOs from your backend
 export interface RegisterRequest {
   name: string;
   email: string;
@@ -21,26 +19,22 @@ export interface LoginResponse {
   expiry: string;
 }
 
-// ✅ User returned by /user/me
 export interface UserDto {
   id: number;
   name: string;
   email: string;
 }
 
-// ✅ Register user with backend
 export const register = async (data: RegisterRequest): Promise<UserDto> => {
   const res = await axios.post<UserDto>(`${API}/Auth/register`, data);
   return res.data;
 };
 
-// ✅ Login and receive JWT token
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   const res = await axios.post<LoginResponse>(`${API}/Auth/login`, data);
   return res.data;
 };
 
-// ✅ Fetch current user using token
 export const getMe = async (token: string): Promise<UserDto> => {
   const res = await axios.get<UserDto>(`${API}/user/me`, {
     headers: {
@@ -50,7 +44,6 @@ export const getMe = async (token: string): Promise<UserDto> => {
   return res.data;
 };
 
-// ✅ Update name of logged-in user
 export const updateName = async (name: string, token: string): Promise<void> => {
   await axios.put(`${API}/user/name`, name, {
     headers: {
@@ -60,7 +53,6 @@ export const updateName = async (name: string, token: string): Promise<void> => 
   });
 };
 
-// ✅ Update password of logged-in user
 export const updatePassword = async (newPassword: string, token: string): Promise<void> => {
   await axios.put(`${API}/user/password`, newPassword, {
     headers: {
