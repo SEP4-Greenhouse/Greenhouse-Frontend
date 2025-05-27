@@ -19,7 +19,7 @@ const Account = () => {
 }
 
 try {
-  if (name !== user.name) {
+  if (user && name !== user.name) {
     await updateName(name, token);
     setUser({ ...user, name });
   }
