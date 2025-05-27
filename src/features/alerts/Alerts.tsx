@@ -1,10 +1,11 @@
+// Alerts.tsx
 import React, { useState } from 'react';
 import './Alerts.css';
 import WaterPumpLive from './WaterPumpLive';
 import { useAlertsThreshold } from './useAlertsThreshold';
 
 const Alerts: React.FC = () => {
-  const [thresholds, setThresholds] = useState({
+  const [thresholds, setThresholds] = useState<Record<string, string>>({
     temperature: '',
     soilHumidity: '',
     airHumidity: '',
@@ -18,20 +19,20 @@ const Alerts: React.FC = () => {
   };
 
   const handleSetThreshold = (type: string) => {
-    const value = thresholds[type as keyof typeof thresholds];
+    const value = thresholds[type];
     if (value === '') return alert('Please enter a threshold value');
 
     saveThreshold({
-      type: type as any,
+      type: type as 'temperature' | 'soilHumidity' | 'airHumidity' | 'co2',
       value: parseFloat(value),
     });
   };
 
   const SENSOR_TYPES = [
-    { key: "temperature", label: "Temperature" },
-    { key: "soilHumidity", label: "Soil Humidity" },
-    { key: "airHumidity", label: "Air Humidity" },
-    { key: "co2", label: "CO2" }
+    { key: 'temperature', label: 'Temperature' },
+    { key: 'soilHumidity', label: 'Soil Humidity' },
+    { key: 'airHumidity', label: 'Air Humidity' },
+    { key: 'co2', label: 'CO2' }
   ];
 
   return (
@@ -44,12 +45,12 @@ const Alerts: React.FC = () => {
             <input
               type="number"
               className="alert-input"
-              value={thresholds[key as keyof typeof thresholds]}
+              value={thresholds[key]}
               onChange={(e) => handleInputChange(e, key)}
               placeholder="Enter threshold"
             />
             <button className="alert-button" onClick={() => handleSetThreshold(key)} disabled={isSaving}>
-              {isSaving ? "Sending..." : "Set Threshold"}
+              {isSaving ? 'Sending...' : 'Set Threshold'}
             </button>
           </div>
         ))}
