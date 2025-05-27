@@ -12,9 +12,14 @@ export function useHistoricalData(sensorKey: SensorKey, granularity: "minute" | 
         setError("");
         const result = await fetchHistoricalSensorData(sensorKey, granularity);
         setData(result);
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch history");
-      }
+      } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError("Failed to fetch history");
+  }
+}
+
     }
 
     load();

@@ -18,9 +18,14 @@ const Login = () => {
     try {
       await login(email, password);
       navigate("/post-login");
-    } catch (err: any) {
-      setError("Login failed. Please check your credentials.");
-    }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError("Login failed.");
+  }
+}
+
   };
 
   return (

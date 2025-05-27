@@ -13,30 +13,29 @@ const Account = () => {
   const handleSave = async () => {
     setMessage("");
 
-    if (name.length < 3) {
-      return setMessage("❌ Name must be at least 3 characters.");
+    if (!token) {
+  setMessage("❌ Unauthorized.");
+  return;
+}
+
+try {
+  if (name !== user.name) {
+    await updateName(name, token);
+    setUser({ ...user, name });
+  }
+
+  if (password.trim()) {
+    if (password.length < 8) {
+      return setMessage("❌ Password must be at least 8 characters.");
     }
+    await updatePassword(password, token);
+  }
+  setMessage("✅ Account updated successfully.");
+} catch (err: unknown) {
+  console.error(err);
+  setMessage("❌ Failed to update account.");
+}
 
-    try {
-      // Update name if changed
-      if (name !== user.name) {
-        await updateName(name, token!);
-        setUser({ ...user, name }); // Update local context
-      }
-
-      // Update password if set
-      if (password.trim()) {
-        if (password.length < 8) {
-          return setMessage("❌ Password must be at least 8 characters.");
-        }
-        await updatePassword(password, token!);
-      }
-
-      setMessage("✅ Account updated successfully.");
-    } catch (err: any) {
-      console.error(err);
-      setMessage("❌ Failed to update account.");
-    }
   };
 
   const handleCancel = () => {
