@@ -20,7 +20,7 @@ export type ActuatorActionDto = {
 let lastSettings: GreenhouseControlDto | null = null;
 
 export async function sendControlSettings(data: GreenhouseControlDto): Promise<void> {
-  const token = localStorage.getItem("token"); // 🔐 Or get from AuthContext
+  const token = localStorage.getItem("token");
   if (!token) throw new Error("User is not authenticated");
 
   const timestamp = new Date().toISOString();
@@ -82,19 +82,33 @@ export async function sendControlSettings(data: GreenhouseControlDto): Promise<v
     });
   }
 
+  // Update the stored state
   lastSettings = { ...data };
 
-  // 🔥 Send all requests with JWT token
+  // Send all actuator updates
   await Promise.all(
     actions.map(({ actuatorId, dto }) =>
       fetch(`${BASE_URL}/api/actuator/${actuatorId}/action`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ TOKEN ADDED HERE
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(dto),
       })
     )
   );
+}
+
+// ✅ Test helper to reset state (only in Vitest)
+declare global {
+  interface ImportMeta {
+    vitest?: unknown;
+  }
+}
+
+if (import.meta.vitest) {
+  (sendControlSettings as any).__resetLastSettings = () => {
+    lastSettings = null;
+  };
 }

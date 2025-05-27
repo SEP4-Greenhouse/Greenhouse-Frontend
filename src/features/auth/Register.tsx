@@ -18,7 +18,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-    // Simple client-side validation
+    // ✅ Simple client-side validation
     if (form.name.length < 3) {
       return setError("Name must be at least 3 characters long.");
     }
@@ -40,13 +40,12 @@ const Register = () => {
 
       navigate("/login");
     } catch (err: unknown) {
-  if (err instanceof Error) {
-    setError(err.message);
-  } else {
-    setError("Register failed.");
-  }
-}
-
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Register failed.");
+      }
+    }
   };
 
   return (
@@ -54,7 +53,10 @@ const Register = () => {
       <div className="login-box">
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-          {error && <p className="error">{error}</p>}
+          {/* ✅ Error with data-testid for test targeting */}
+          {error && <p className="error" data-testid="error-message">{error}</p>}
+
+
           <input
             name="name"
             placeholder="Name"

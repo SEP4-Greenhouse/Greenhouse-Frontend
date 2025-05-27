@@ -20,7 +20,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* ✅ Add Jest + Node types */
+    "types": ["jest", "node"]
   },
-  "include": ["src"]
+  "include": ["src", "src/api/__test__"]
 }
