@@ -17,12 +17,15 @@ export function useGreenhouseControl() {
     try {
       await sendControlSettings(settings);
       setSuccess(true);
-
-      // Automatically clear success after 3 seconds
       setTimeout(() => setSuccess(false), 3000);
-    } catch (err: any) {
-      console.error("Failed to save settings:", err);
-      setError(err.message || "Unknown error occurred");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Failed to save settings:', err);
+        setError(err.message);
+      } else {
+        console.error('Unknown error:', err);
+        setError('Unknown error occurred');
+      }
     } finally {
       setIsSaving(false);
     }
