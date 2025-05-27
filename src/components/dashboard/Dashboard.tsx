@@ -7,6 +7,11 @@ import { useGreenhouseStats } from "./useGreenhouseStats";
 import { useGreenhouse } from "../../features/greenhouseSetup/GreenhouseContext";
 import { predictWateringTime } from "../../api/mlService";
 
+// ✅ Convert UTC string to local Date
+function toLocalTime(utcString: string): Date {
+  return new Date(new Date(utcString).getTime() + new Date().getTimezoneOffset() * 60000);
+}
+
 const Dashboard = () => {
   const { stats, alerts, error } = useGreenhouseStats();
   const { greenhouse } = useGreenhouse();
@@ -17,23 +22,7 @@ const Dashboard = () => {
   const handlePredictClick = async () => {
     const rawPlantId = localStorage.getItem("plantId");
     const token = localStorage.getItem("token");
-
-    const plantId = rawPlantId !== null ? Number(rawPlantId) : null;
-    console.log("🧪 Final localStorage check:", {
-  greenhouseId: localStorage.getItem("greenhouseId"),
-  plantId: localStorage.getItem("plantId"),
-  
-});
-console.log("🌍 All localStorage keys:", Object.keys(localStorage));
-console.log("🌱 plantId:", localStorage.getItem("plantId"));
-
-
-    
-
-    console.log("🧪 Dashboard sees plantId:", rawPlantId);
-    console.log("🧠 Predict Clicked");
-    console.log("🌱 Plant ID:", plantId);
-    console.log("🔐 Token exists?", !!token);
+    const plantId = rawPlantId ? Number(rawPlantId) : null;
 
     if (!plantId || !token || isNaN(plantId)) {
       console.error("🚫 Missing or invalid plantId or token");
@@ -41,10 +30,14 @@ console.log("🌱 plantId:", localStorage.getItem("plantId"));
     }
 
     setLoading(true);
-
     try {
       const result = await predictWateringTime(plantId, token);
       console.log("✅ Prediction result:", result);
+
+      const msUntilWatering = result.hoursUntilNextWatering * 60 * 60 * 1000;
+      const targetTimestamp = Date.now() + msUntilWatering;
+
+      localStorage.setItem("nextWaterTimestamp", targetTimestamp.toString());
       setPredictionTime(result.predictionTime);
     } catch (err) {
       console.error("❌ Prediction failed", err);
@@ -54,21 +47,27 @@ console.log("🌱 plantId:", localStorage.getItem("plantId"));
   };
 
   useEffect(() => {
-    if (!predictionTime) return;
+    const raw = localStorage.getItem("nextWaterTimestamp");
+    if (!raw) return;
 
-    const targetTime = new Date(predictionTime).getTime();
+    const target = Number(raw);
     const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetTime - now;
+      const now = Date.now();
+      const diff = target - now;
 
       if (diff <= 0) {
-        clearInterval(interval);
         setCountdown("Water now!");
-      } else {
-        const hours = Math.floor(diff / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        setCountdown(`${hours}h ${minutes}m`);
+        clearInterval(interval);
+        return;
       }
+
+      const totalSec = Math.floor(diff / 1000);
+      const days = Math.floor(totalSec / (3600 * 24));
+      const hours = Math.floor((totalSec % (3600 * 24)) / 3600);
+      const minutes = Math.floor((totalSec % 3600) / 60);
+      const seconds = totalSec % 60;
+
+      setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -82,34 +81,33 @@ console.log("🌱 plantId:", localStorage.getItem("plantId"));
 
       {greenhouse && (
         <div className="greenhouse-card glass">
-  <h2 className="greenhouse-title">{greenhouse.greenhouseName || 'Your Greenhouse'}</h2>
-  <div className="greenhouse-grid">
-    <div className="greenhouse-field"><span className="label">🌱 Type:</span><span className="value">{greenhouse.plantType}</span></div>
-    <div className="greenhouse-field"><span className="label">🧬 Species:</span><span className="value">{greenhouse.plantSpecies}</span></div>
-    <div className="greenhouse-field"><span className="label">📅 Planted:</span><span className="value">{greenhouse.plantingDate}</span></div>
-    <div className="greenhouse-field"><span className="label">📈 Stage:</span><span className="value">{greenhouse.growthStage}</span></div>
-  </div>
+          <h2 className="greenhouse-title">
+            {greenhouse.greenhouseName || "Your Greenhouse"}
+          </h2>
+          <div className="greenhouse-grid">
+            <div className="greenhouse-field"><span className="label">🌱 Type:</span><span className="value">{greenhouse.plantType}</span></div>
+            <div className="greenhouse-field"><span className="label">🧬 Species:</span><span className="value">{greenhouse.plantSpecies}</span></div>
+            <div className="greenhouse-field"><span className="label">📅 Planted:</span><span className="value">{greenhouse.plantingDate}</span></div>
+            <div className="greenhouse-field"><span className="label">📈 Stage:</span><span className="value">{greenhouse.growthStage}</span></div>
+          </div>
 
-  <button onClick={handlePredictClick} disabled={loading} className="predict-btn">
-    {loading ? "Predicting..." : "Predict"}
-  </button>
+          <button onClick={handlePredictClick} disabled={loading} className="predict-btn">
+            {loading ? "Predicting..." : "Predict"}
+          </button>
 
-  {predictionTime && (
-  <p className="prediction-time">
-    🕒 Predicted watering time: <strong>{new Date(predictionTime).toLocaleString()}</strong>
-  </p>
-)}
-
-
-  {countdown && (
-  <p className="prediction-time">
-    ⏳ Water in: <strong>{countdown}</strong>
-  </p>
-)}
-
-
-</div>
-
+          {predictionTime && (
+            <>
+              <p className="prediction-time">
+                🕒 Predicted watering time: <strong>{toLocalTime(predictionTime).toLocaleString()}</strong>
+              </p>
+              {countdown && (
+                <p className="prediction-countdown">
+                  ⏳ Water in: <strong>{countdown}</strong>
+                </p>
+              )}
+            </>
+          )}
+        </div>
       )}
 
       {error && <p className="error-text">{error}</p>}
