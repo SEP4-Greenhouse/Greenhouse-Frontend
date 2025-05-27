@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { createSensorAlert } from "../../api/alertsService";
+import { useState } from 'react';
+import { createSensorAlert } from '../../api/alertsService';
 
-type SensorType = "temperature" | "soilHumidity" | "airHumidity" | "co2";
+type SensorType = 'temperature' | 'soilHumidity' | 'airHumidity' | 'co2';
 
 type SensorThreshold = {
   type: SensorType;
   value: number;
 };
 
-// This would realistically map sensor types to sensorReadingIds manually or dynamically
 const SENSOR_TYPE_TO_READING_ID: Record<SensorType, number> = {
   temperature: 1,
   soilHumidity: 2,
@@ -31,9 +30,14 @@ export const useAlertsThreshold = () => {
       const message = `Manual alert: ${type} threshold exceeded with value ${value}`;
       await createSensorAlert({ sensorReadingId, message });
       setSuccess(true);
-    } catch (err: any) {
-      console.error("Threshold submission error:", err);
-      setError(err.message || "Failed to create alert");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Threshold submission error:', err);
+        setError(err.message);
+      } else {
+        console.error('Unknown error:', err);
+        setError('Failed to create alert');
+      }
     } finally {
       setIsSaving(false);
     }

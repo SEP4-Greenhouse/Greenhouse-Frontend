@@ -39,9 +39,14 @@ const Register = () => {
       });
 
       navigate("/login");
-    } catch (err: any) {
-      setError(err.message || "Registration failed");
-    }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError("Register failed.");
+  }
+}
+
   };
 
   return (
