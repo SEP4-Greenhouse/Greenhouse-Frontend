@@ -20,7 +20,7 @@ const Account = () => {
     try {
       // Update name if changed
       if (name !== user.name) {
-        await updateName(name, token);
+        await updateName(name, token!);
         setUser({ ...user, name }); // Update local context
       }
 
@@ -29,7 +29,7 @@ const Account = () => {
         if (password.length < 8) {
           return setMessage("❌ Password must be at least 8 characters.");
         }
-        await updatePassword(password, token);
+        await updatePassword(password, token!);
       }
 
       setMessage("✅ Account updated successfully.");
