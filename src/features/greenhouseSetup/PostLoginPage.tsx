@@ -14,19 +14,45 @@ const PostLoginPage = () => {
     }
   }, []);
 
-  // continue button logic
   const handleContinue = () => {
-    const user = localStorage.getItem('username');
-    if (user) {
-      const saved = localStorage.getItem(`greenhouse-${user}`);
-      if (saved) {
-        setGreenhouse(JSON.parse(saved));
-        navigate('/app/dashboard');
-      } else {
-        alert("No greenhouse data found for your account.");
-      }
-    } else {
+    const usernameRaw = localStorage.getItem('username');
+
+    if (!usernameRaw) {
       alert("You're not logged in.");
+      return;
+    }
+    
+    const username = localStorage.getItem("username")?.toLowerCase().trim();
+const key = `greenhouse-${username}`;
+const saved = localStorage.getItem(key);
+
+console.log("Searching for:", key);
+console.log("Found:", saved);
+
+
+    if (!saved) {
+      alert("No greenhouse data found for your account.");
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(saved);
+
+      setGreenhouse({
+        greenhouseName: parsed.greenhouseName,
+        plantType: parsed.plantType,
+        plantSpecies: parsed.plantSpecies,
+        plantingDate: parsed.plantingDate,
+        growthStage: parsed.growthStage
+      });
+
+      localStorage.setItem("greenhouseId", parsed.greenhouseId.toString());
+      localStorage.setItem("plantSpecies", parsed.plantSpecies);
+
+      navigate('/app/dashboard');
+    } catch (err) {
+      console.error("❌ Failed to parse saved greenhouse:", err);
+      alert("Something went wrong loading your greenhouse.");
     }
   };
 
