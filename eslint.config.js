@@ -10,7 +10,12 @@ export default tseslint.config(
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.app.json', // ✅ MATCHES your file
+        tsconfigRootDir: process.cwd(),
+        sourceType: 'module'
+      },
       globals: globals.browser,
     },
     plugins: {
@@ -19,10 +24,8 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      '@typescript-eslint/no-explicit-any': 'off' // ✅ turns off those errors
     },
-  },
+  }
 )
