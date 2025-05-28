@@ -1,22 +1,19 @@
-import "./dashboard.css";
+// AlertsPanel.tsx
+import { AlertDto } from "../../api/alertsService";
 
-interface Props {
-  alerts: string[];
+interface AlertsPanelProps {
+  alerts: AlertDto[];
 }
 
-const AlertsPanel = ({ alerts }: Props) => {
+const AlertsPanel = ({ alerts }: AlertsPanelProps) => {
   return (
-    <div className="alerts-panel">
+    <div className="alerts-panel glass">
       <h2>🔔 Notifications & Alerts</h2>
-      {alerts.length === 0 ? (
-        <p>No alerts</p>
-      ) : (
-        <ul>
-          {alerts.map((alert, index) => (
-            <li key={index}>{alert}</li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {alerts.map((alert, index) => (
+          <li key={index}>🔹 {alert.message}</li>
+        ))}
+      </ul>
     </div>
   );
 };
