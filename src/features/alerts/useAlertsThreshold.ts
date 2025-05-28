@@ -21,14 +21,19 @@ export const useAlertsThreshold = () => {
   const [error, setError] = useState<string | null>(null);
 
   const saveThreshold = async ({ type, value }: SensorThreshold) => {
-    setIsSaving(true);
+setIsSaving(true);
     setSuccess(false);
     setError(null);
 
     try {
       const sensorReadingId = SENSOR_TYPE_TO_READING_ID[type];
       const message = `Manual alert: ${type} threshold exceeded with value ${value}`;
-      await createSensorAlert({ sensorReadingId, message });
+      await createSensorAlert({
+        sensorReadingId,
+        message,
+        type,
+        timestamp: new Date().toISOString(),
+      });
       setSuccess(true);
     } catch (err: unknown) {
       if (err instanceof Error) {

@@ -6,15 +6,16 @@ import { SENSOR_CONFIG } from "../../config/sensorConfig";
 import { useGreenhouseStats } from "./useGreenhouseStats";
 import { useGreenhouse } from "../../features/greenhouseSetup/GreenhouseContext";
 import { predictWateringTime } from "../../api/mlService";
+import { useAlerts } from "../dashboard/useAlerts"; 
 
-// ✅ Convert UTC string to local Date
 function toLocalTime(utcString: string): Date {
   return new Date(new Date(utcString).getTime() + new Date().getTimezoneOffset() * 60000);
 }
 
 const Dashboard = () => {
-  const { stats, alerts, error } = useGreenhouseStats();
+  const { stats, error: statsError } = useGreenhouseStats();
   const { greenhouse } = useGreenhouse();
+  const { alerts, error: alertsError } = useAlerts(); // GET REAL ALERTS
   const [predictionTime, setPredictionTime] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -32,8 +33,6 @@ const Dashboard = () => {
     setLoading(true);
     try {
       const result = await predictWateringTime(plantId, token);
-      console.log("✅ Prediction result:", result);
-
       const msUntilWatering = result.hoursUntilNextWatering * 60 * 60 * 1000;
       const targetTimestamp = Date.now() + msUntilWatering;
 
@@ -110,7 +109,8 @@ const Dashboard = () => {
         </div>
       )}
 
-      {error && <p className="error-text">{error}</p>}
+      {statsError && <p className="error-text">{statsError}</p>}
+      {alertsError && <p className="error-text">{alertsError}</p>}
 
       <section className="stats-row">
         {SENSOR_CONFIG.map(({ key, label, unit }) => {
@@ -118,7 +118,7 @@ const Dashboard = () => {
           const value = typeof rawValue === "number" ? `${rawValue} ${unit || ""}` : rawValue;
 
           return (
-            <StatCard key={key} label={label} value={value} loading={isLoading} error={!!error} />
+            <StatCard key={key} label={label} value={value} loading={isLoading} error={!!statsError} />
           );
         })}
       </section>

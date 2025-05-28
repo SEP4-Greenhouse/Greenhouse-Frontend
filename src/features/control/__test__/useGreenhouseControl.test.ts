@@ -4,7 +4,7 @@ import { useGreenhouseControl } from "../useGreenhouseControl";
 import { sendControlSettings } from "../../../api/controlService";
 import { GreenhouseControlDto } from "../../../api/controlService";
 
-// ✅ Mock the controlService module
+//  Mock the controlService module
 vi.mock("../../../api/controlService", () => ({
   sendControlSettings: vi.fn(),
 }));
@@ -48,7 +48,7 @@ describe("useGreenhouseControl", () => {
     expect(result.current.success).toBe(true);
     expect(result.current.error).toBeNull();
 
-    // ✅ Fast-forward setTimeout to reset success
+    //  Fast-forward setTimeout to reset success
     act(() => {
       vi.runAllTimers();
     });
