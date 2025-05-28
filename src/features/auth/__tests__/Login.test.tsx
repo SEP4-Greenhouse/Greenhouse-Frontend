@@ -5,12 +5,12 @@ import Login from "../Login";
 import { useAuth } from "../AuthContext";
 import "@testing-library/jest-dom";
 
-// ✅ Cleanup after each test to prevent DOM duplication
+//  Cleanup after each test to prevent DOM duplication
 afterEach(() => {
   cleanup();
 });
 
-// 🧪 Mock useNavigate from react-router-dom
+//  Mock useNavigate from react-router-dom
 const mockNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
@@ -20,12 +20,12 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-// 🧪 Mock useAuth from AuthContext
+// Mock useAuth from AuthContext
 vi.mock("../AuthContext", () => ({
   useAuth: vi.fn(),
 }));
 
-// ✅ Shared login mock
+// Shared login mock
 const mockLogin = vi.fn();
 
 beforeEach(() => {
